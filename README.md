@@ -8,8 +8,8 @@
 async function init() {
 const svg = d3.select("svg");
 const data = await d3.csv('https://flunky.github.io/cars2017.csv');
-var x = d3.scaleLog().domain([10, 150]).range([0, 300]);
-var y = d3.scaleLog().domain([10, 150]).range([300, 0]);
+var x = d3.scaleLog().domain([10, 1500]).range([0, 200]);
+var y = d3.scaleLog().domain([10, 1500]).range([200, 0]);
 
 svg.append("g")
   .attr("transform", "translate(50,50)")
