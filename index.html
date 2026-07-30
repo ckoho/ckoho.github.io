@@ -1,6 +1,6 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> circle {stroke: black;} </style>
+<style> circle {stroke: green;} </style>
 <body onload='init()'>
 <svg width=300 height=300>
 </svg>
@@ -18,11 +18,11 @@ svg.append("g")
   .data(data)
   .enter()
   .append("circle")
-     .style("opacity", 0.7)
+    .style("opacity", 0.7)
     .attr("cx", d => x(+d.AverageCityMPG))
     .attr("fill", d => color(d.Fuel))
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("r", d => 2 + +d.EngineCylinders);
+    .attr("r", d => (2 + +d.EngineCylinders)/2);
 
     svg.append("g")
   .attr("transform", "translate(50,50)")
