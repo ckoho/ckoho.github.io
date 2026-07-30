@@ -18,7 +18,7 @@ svg.append("g")
   .enter()
   .append("circle")
     .attr("cx", d => x(+d.AverageCityMPG))
-    .attr("fill", function(d){return color(d.Make) })
+    //.attr("fill", function(d){return color(d.Make) })
     .attr("cy", d => y(+d.AverageHighwayMPG))
     .attr("r", d => 2 + +d.EngineCylinders);
 
