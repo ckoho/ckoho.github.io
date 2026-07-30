@@ -11,7 +11,24 @@ const data = await d3.csv('https://flunky.github.io/cars2017.csv');
 var x = d3.scaleLog().domain([10, 150]).range([0, 200]);
 var y = d3.scaleLog().domain([10, 150]).range([200, 0]);
 var color = d3.scaleOrdinal(d3.schemeSet1);
-  
+const legend = svg.append("g")
+    .attr("transform", "translate(220,20)");
+
+const legendItems = legend.selectAll("g")
+    .data(color.domain())
+    .enter()
+    .append("g")
+    .attr("transform", (d,i) => `translate(0,${i*20})`);
+
+legendItems.append("rect")
+    .attr("width",12)
+    .attr("height",12)
+    .attr("fill", d => color(d));
+
+legendItems.append("text")
+    .attr("x",18)
+    .attr("y",10)
+    .text(d => d + " cylinders");  
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .selectAll("circle")
@@ -20,7 +37,7 @@ svg.append("g")
   .append("circle")
     .style("opacity", 0.9)
     .attr("cx", d => x(+d.AverageCityMPG))
-    .attr("fill", d => color(d.Fuel))
+    .attr("fill", d => color(d.EngineCylinders))
     .attr("cy", d => y(+d.AverageHighwayMPG))
     .attr("r", d => (2 + +d.EngineCylinders)/3);
 
