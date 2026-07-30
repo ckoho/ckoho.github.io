@@ -50,10 +50,10 @@ svg.append("g")
   );
 
 svg.append("g")
-  .attr("transform", "translate(50,250)")
+  .attr("transform", "translate(50,450)")
   .call(
     d3.axisBottom(x)
-      .tickValues([10, 100])
+      .tickValues([10, 20, 50, 100])
       .tickFormat(d3.format("~s"))
   );    
 }
