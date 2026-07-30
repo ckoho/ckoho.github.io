@@ -8,8 +8,8 @@
 async function init() {
 const svg = d3.select("svg");
 const data = await d3.csv('https://flunky.github.io/cars2017.csv');
-var x = d3.scaleLog().domain([10, 1500]).range([0, 200]);
-var y = d3.scaleLog().domain([10, 1500]).range([200, 0]);
+var x = d3.scaleLog().domain([10, 150]).range([0, 200]);
+var y = d3.scaleLog().domain([10, 150]).range([200, 0]);
 
 svg.append("g")
   .attr("transform", "translate(50,50)")
@@ -25,7 +25,7 @@ svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
     d3.axisLeft(y)
-      .tickValues([10, 20, 50, 100])
+      .tickValues([10, 100])
       .tickFormat(d3.format("~s"))
   );
 
