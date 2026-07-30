@@ -12,7 +12,7 @@ var x = d3.scaleLog().domain([10, 150]).range([0, 500]);
 var y = d3.scaleLog().domain([10, 150]).range([500, 0]);
 var color = d3.scaleOrdinal(d3.schemeSet1);
 const legend = svg.append("g")
-    .attr("transform", "translate(220,20)");
+    .attr("transform", "translate(420,20)");
 
 const legendItems = legend.selectAll("g")
     .data(color.domain())
