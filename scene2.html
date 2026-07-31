@@ -17,7 +17,8 @@ var x = d3.scaleBand()
   .range([0, 450])
   .padding(0.5); 
 var y = d3.scaleLog().domain([10, 150]).range([450, 0]);
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+var color = d3.scaleSequential(d3.interpolateRainbow)
+  .domain([0, makeTypes.length]);
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .selectAll("circle")
@@ -32,7 +33,7 @@ svg.append("g")
       return columnCenter + randomOffset;
       })
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("fill", d => color(d.Make))
+    .attr("fill", d => color(makeTypes.indexOf(d.Make)))
     .attr("r", d => (2 + +d.EngineCylinders));
 svg.append("g")
   .attr("transform", "translate(50,50)")
