@@ -18,10 +18,10 @@ svg.append("g")
   .data(data)
   .enter()
   .append("circle")
-    .style("opacity", 0.9)
+    .style("opacity", 0.7)
     .attr("cx", d => x(+d.AverageCityMPG))
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("fill", d => color(d.EngineCylinders)+1)
+    .attr("fill", d => color("black")
     .attr("r", d => (2 + +d.EngineCylinders)/3);
 
 svg.append("g")
