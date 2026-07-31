@@ -15,8 +15,7 @@ const fuelTypes = [...new Set(data.map(d => d.Fuel))];
 var x = d3.scaleBand()
   .domain(fuelTypes)
   .range([0, 450])
-  .padding(0.5); // Adds spacing between categories
-
+  .padding(0.5); 
 var y = d3.scaleLog().domain([10, 150]).range([450, 0]);
 var color = d3.scaleOrdinal(d3.schemeSet1);
 
@@ -30,8 +29,7 @@ svg.append("g")
     .attr("cx", d => x(d.Fuel) + x.bandwidth() / 2)
     .attr("fill", d => color(d.EngineCylinders))
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("r", d => (2 + +d.EngineCylinders)/3);
-
+    .attr("r", d => (2 + +d.EngineCylinders)/3
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
@@ -39,7 +37,6 @@ svg.append("g")
       .tickValues([10, 20, 50, 100])
       .tickFormat(d3.format("~s"))
   );
-
 svg.append("g")
   .attr("transform", "translate(50,500)") 
   .call(d3.axisBottom(x));    
