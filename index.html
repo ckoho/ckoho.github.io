@@ -23,7 +23,6 @@ svg.append("g")
     .attr("cy", d => y(+d.AverageHighwayMPG))
     .attr("fill", d => color("black"))
     .attr("r", d => (2 + +d.EngineCylinders)/3);
-
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
