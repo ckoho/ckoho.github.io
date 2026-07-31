@@ -25,7 +25,7 @@ svg.append("g")
   .data(data)
   .enter()
   .append("circle")
-    .style("opacity", 0.8)
+    .style("opacity", 0.5)
     .attr("cx", d => {
       const columnCenter = x(d.Fuel) + x.bandwidth() / 2;
       const jitterWidth = x.bandwidth() * 0.4; // Limits jitter to 40% of column width so categories don't mix
