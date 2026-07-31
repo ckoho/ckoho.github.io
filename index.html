@@ -38,10 +38,9 @@ svg.append("g")
   .append("circle")
     .style("opacity", 0.9)
     .attr("cx", d => x(+d.AverageCityMPG))
-    .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("r", d => (2 + +d.EngineCylinders)/3);
+    .attr("cy", d => y(+d.AverageHighwayMPG));
 
-    svg.append("g")
+svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
     d3.axisLeft(y)
