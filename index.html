@@ -2,7 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {} </style>
 <body onload='init()'>
-<svg width=500 height=500>
+<svg width=600 height=600>
 </svg>
 <a href="scene2.html">Fuel Type →</a>
 <script>
@@ -20,7 +20,9 @@ svg.append("g")
   .append("circle")
     .style("opacity", 0.9)
     .attr("cx", d => x(+d.AverageCityMPG))
-    .attr("cy", d => y(+d.AverageHighwayMPG));
+    .attr("cy", d => y(+d.AverageHighwayMPG))
+    .attr("fill", d => color(d.EngineCylinders))
+    .attr("r", d => (2 + +d.EngineCylinders)/3);
 
 svg.append("g")
   .attr("transform", "translate(50,50)")
