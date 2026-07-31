@@ -4,7 +4,7 @@
 <body onload='init()'>
 <svg width=550 height=550> 
 </svg>
-<a href="index.html">← Overview            </a>
+<a href="index.html">← Overview&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 <a href="scene3.html">             Cylinder Impact →</a>
 <script>
 async function init() {
@@ -28,7 +28,7 @@ svg.append("g")
     .style("opacity", 0.9)
     .attr("cx", d => x(d.Fuel) + x.bandwidth() / 2)
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("r", d => (2 + +d.EngineCylinders)/3
+    .attr("r", d => (2 + +d.EngineCylinders)/3);
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
