@@ -26,7 +26,12 @@ svg.append("g")
   .enter()
   .append("circle")
     .style("opacity", 0.9)
-    .attr("cx", d => x(d.Fuel) + x.bandwidth() / 2)
+    .attr("cx", d => {
+      const columnCenter = x(d.Fuel) + x.bandwidth() / 2;
+      const jitterWidth = x.bandwidth() * 0.4; // Limits jitter to 40% of column width so categories don't mix
+      const randomOffset = (Math.random() - 0.5) * jitterWidth; 
+      return columnCenter + randomOffset;
+      })
     .attr("cy", d => y(+d.AverageHighwayMPG))
     .attr("r", d => (2 + +d.EngineCylinders));
 svg.append("g")
