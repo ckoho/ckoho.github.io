@@ -18,7 +18,6 @@ var x = d3.scaleBand()
   .padding(0.5); 
 var y = d3.scaleLog().domain([10, 150]).range([450, 0]);
 var color = d3.scaleOrdinal(d3.schemeCategory20);
-
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .selectAll("circle")
