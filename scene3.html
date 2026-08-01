@@ -33,7 +33,7 @@ svg.append("g")
       return columnCenter + randomOffset;
       })
     .attr("cy", d => y(+d.AverageCityMPG))
-    .attr("fill", d => color(2 + +d.EngineCylinders))
+    .attr("fill", d => color(2 + +d.Fuel))
     .attr("r", d => (2 + +d.EngineCylinders));
 svg.append("g")
   .attr("transform", "translate(50,50)")
