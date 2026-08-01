@@ -53,7 +53,13 @@ svg.append("text")
   .style("font-size", "16px")
   .style("font-weight", "bold")
   .text("Highway MPG vs Fuel Type by Engine Cylinders");
-
+svg.append("text")
+    .attr("x", 250)
+    .attr("y", 60)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("fill", "gray")
+    .text("Color indicates vehicle make.");
 svg.append("text")
   .attr("x", 275) 
   .attr("y", 545)
