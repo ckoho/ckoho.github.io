@@ -37,7 +37,7 @@ svg.append("g")
   })
   .attr("cy", d => y(+d.AverageCityMPG))
     .attr("fill", d => color(d.Fuel))
-    .attr("r", d => (2 + +d.EngineCylinders));
+    .attr("r", 4);
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
