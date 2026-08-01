@@ -1,2 +1,76 @@
-<a href="scene2.html">← Fuel Impact</a>
-<a href="scene4.html">Final chart →</a>
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {} </style>
+<body onload='init()'>
+<svg width=550 height=550> 
+</svg>
+<a href="scene2.html">← Back&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<a href="scene4.html">     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Next →</a>
+<script>
+async function init() {
+const svg = d3.select("svg");
+const data = await d3.csv('https://flunky.github.io/cars2017.csv');
+const fuelTypes = [...new Set(data.map(d => d.Fuel))];
+const makeTypes = [...new Set(data.map(d => d.Make))];
+var x = d3.scaleBand()
+  .domain(fuelTypes)
+  .range([0, 450])
+  .padding(0.5); 
+var y = d3.scaleLog().domain([10, 150]).range([450, 0]);
+var color = d3.scaleSequential(d3.interpolateRainbow)
+  .domain([0, makeTypes.length]);
+svg.append("g")
+  .attr("transform", "translate(50,50)")
+  .selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+    .style("opacity", 0.5)
+    .attr("cx", d => {
+      const columnCenter = x(d.EngineCylinders) + x.bandwidth() / 2;
+      const jitterWidth = x.bandwidth() * 0.4; // Limits jitter to 40% of column width so categories don't mix
+      const randomOffset = (Math.random() - 0.5) * jitterWidth; 
+      return columnCenter + randomOffset;
+      })
+    .attr("cy", d => y(+d.AverageCityMPG))
+    .attr("fill", d => color(2 + +d.EngineCylinders))
+    .attr("r", d => (2 + +d.EngineCylinders));
+svg.append("g")
+  .attr("transform", "translate(50,50)")
+  .call(
+    d3.axisLeft(y)
+      .tickValues([10, 20, 50, 100])
+      .tickFormat(d3.format("~s"))
+  );
+svg.append("g")
+  .attr("transform", "translate(50,500)") 
+  .call(d3.axisBottom(x));
+svg.append("text")
+  .attr("x", 275)
+  .attr("y", 30) 
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "16px")
+  .style("font-weight", "bold")
+  .text("City MPG vs  Engine Cylinders");
+
+svg.append("text")
+  .attr("x", 275) 
+  .attr("y", 545)
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "12px")
+  .text("Enginer Cylinders");
+
+svg.append("text")
+  .attr("transform", "rotate(-90)") 
+  .attr("x", -250)                  
+  .attr("y", 20)                    
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "12px")
+  .text("City Highway MPG (Log Scale)");
+}
+</script>
+</body>
+</html>
