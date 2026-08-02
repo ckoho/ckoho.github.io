@@ -9,8 +9,8 @@
 async function init() {
 const svg = d3.select("svg");
 const data = await d3.csv('https://flunky.github.io/cars2017.csv');
-var x = d3.scaleLog().domain([10, 160]).range([450, 0]);
-var y = d3.scaleLog().domain([10, 160]).range([50, 450]);
+var x = d3.scaleLog().domain([10, 160]).range([0, 450]);
+var y = d3.scaleLog().domain([10, 160]).range([450, 0]);
 const fuelTypes = [...new Set(data.map(d => d.Fuel))];
 var color = d3.scaleOrdinal()
   .domain(fuelTypes)
