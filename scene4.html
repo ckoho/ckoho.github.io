@@ -43,7 +43,9 @@ svg.append("g")
     .attr("cx", d => x(+d.AverageHighwayMPG))
     .attr("cy", d => y(+d.AverageCityMPG))
     .attr("fill", d => color(d.Fuel))
-    .attr("r", d => (2 + +d.EngineCylinders)/2);
+    .attr("r", d => (2 + +d.EngineCylinders)/2)
+    .on("mouseover", showTooltip)
+    .on("mouseout", removeTooltip);
 
     svg.append("g")
   .attr("transform", "translate(50,50)")
