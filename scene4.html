@@ -16,7 +16,7 @@ var color = d3.scaleOrdinal()
   .domain(fuelTypes)
   .range(d3.schemeCategory10);    
 const legend = svg.append("g")
-    .attr("transform", "translate(420,20)");
+    .attr("transform", "translate(420,420)");
 
 const legendItems = legend.selectAll("g")
     .data(color.domain())
