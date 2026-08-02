@@ -138,14 +138,23 @@ const circles = svg.append("g")
           if (!d) return;
           const carData = d.data; 
           tooltip.style("opacity", 1)
-                 .html(`<strong>${carData.Make}</strong><br/>Cylinders: ${carData.EngineCylinders}`);
+                 .html(`
+                   <strong>${carData.Make} ${carData.Model}</strong><br>
+                   Fuel: ${carData.Fuel}<br>
+                   City MPG: ${carData.AverageCityMPG}<br>
+                   Highway MPG: ${carData.AverageHighwayMPG}<br>
+                   Cylinders: ${carData.EngineCylinders}
+                   `);
+
           circles
-            .attr("stroke", null)
-            .attr("stroke-width", 0);
+           .attr("stroke", null)
+           .attr("stroke-width", 0)
+           .attr("r", d => (2 + +d.EngineCylinders)/2);
           circles
             .filter(c => c === carData)
             .attr("stroke", "black")
-            .attr("stroke-width", 2);
+            .attr("stroke-width", 2)
+            .attr("r", d => (2 + +d.EngineCylinders)/2 + 2);
       })
       .on("mousemove", function() {
           tooltip.style("left", (d3.event.pageX + 15) + "px")
