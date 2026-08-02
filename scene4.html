@@ -102,11 +102,18 @@ const circles = svg.append("g")
 
   svg.append("text")
       .attr("x", 275)
-      .attr("y", 60)
+      .attr("y", 50)
       .attr("text-anchor", "middle")
       .style("font-size", "10px")
       .style("fill", "gray")
       .text("Size indicates number of cylinders.");
+  svg.append("text")
+      .attr("x", 275)
+      .attr("y", 60)
+      .attr("text-anchor", "middle")
+      .style("font-size", "10px")
+      .style("fill", "gray")
+      .text("Hover over a pint for more information.");
 
   svg.append("text")
     .attr("x", 275) 
