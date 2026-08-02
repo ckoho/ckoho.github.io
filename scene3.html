@@ -18,7 +18,7 @@ var x = d3.scaleBand()
   .domain(cylinderTypes)
   .range([0, 450])
   .padding(0.5);
-var y = d3.scaleLog().domain([10, 160]).range([450, 0]);
+var y = d3.scaleLog().domain([8, 160]).range([450, 0]);
 var color = d3.scaleOrdinal()
   .domain(fuelTypes)
   .range(d3.schemeCategory10);
