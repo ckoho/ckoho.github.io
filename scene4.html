@@ -15,7 +15,6 @@
       opacity: 0;
       transition: opacity 0.2s;
     }
-    /* CRITICAL: Keeps the Voronoi structural lines invisible */
     .voronoi path {
       fill: none;
       pointer-events: all;
@@ -142,6 +141,13 @@ const voronoi = d3.voronoi()
           const carData = d.data; 
           tooltip.style("opacity", 1)
                  .html(`<strong>${carData.Make}</strong><br/>Cylinders: ${carData.EngineCylinders}`);
+          circles
+            .attr("stroke", null)
+            .attr("stroke-width", 0);
+          circles
+            .filter(c => c === car)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2);
       })
       .on("mousemove", function() {
           tooltip.style("left", (d3.event.pageX + 15) + "px")
