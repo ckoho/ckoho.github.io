@@ -1,4 +1,166 @@
+<!DOCTYPE html>
 <html>
+<head>
+  <script src='https://d3js.org/d3.v5.min.js'></script>
+  <style>
+    circle { cursor: pointer; }
+    .tooltip {
+      position: absolute;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    /* CRITICAL: Keeps the Voronoi structural lines invisible */
+    .voronoi path {
+      fill: none;
+      pointer-events: all;
+    }
+  </style>
+</head>
+<body onload='init()'>
+
+  <div id="tooltip" class="tooltip"></div>
+  <svg width="700" height="600"></svg>
+  <br/>
+  <a href="scene3.html">← Back</a>
+
+<script>
+async function init() {
+  const svg = d3.select("svg");
+  const data = await d3.csv('https://flunky.github.io/cars2017.csv');
+  
+  var x = d3.scaleLog().domain([8, 160]).range([0, 450]);
+  var y = d3.scaleLog().domain([8, 160]).range([450, 0]);
+  
+  const fuelTypes = [...new Set(data.map(d => d.Fuel))];
+  var color = d3.scaleOrdinal()
+    .domain(fuelTypes)
+    .range(d3.schemeCategory10);    
+  
+  const legend = svg.append("g")
+      .attr("transform", "translate(420,420)");
+
+  const legendItems = legend.selectAll("g")
+      .data(color.domain())
+      .enter()
+      .append("g")
+      .attr("transform", (d,i) => `translate(0,${i*20})`);
+      
+  const tooltip = d3.select("#tooltip");
+  
+  const voronoi = d3.voronoi()
+    .x(d => x(+d.AverageHighwayMPG))
+    .y(d => y(+d.AverageCityMPG))
+    .extent([[0, 0], [450, 450]]);
+
+  legendItems.append("rect")
+      .attr("width",12)
+      .attr("height",12)
+      .attr("fill", d => color(d));
+
+  legendItems.append("text")
+      .attr("x",18)
+      .attr("y",10)
+      .text(d => d + " fuel");  
+
+  // Draw Circles
+  svg.append("g")
+    .attr("transform", "translate(50,50)")
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+      .style("opacity", 0.9)
+      .attr("cx", d => x(+d.AverageHighwayMPG))
+      .attr("cy", d => y(+d.AverageCityMPG))
+      .attr("fill", d => color(d.Fuel))
+      .attr("r", d => (2 + +d.EngineCylinders)/2);
+
+  // Draw Left Axis
+  svg.append("g")
+    .attr("transform", "translate(50,50)")
+    .call(
+      d3.axisLeft(y)
+        .tickValues([10, 20, 50, 100])
+        .tickFormat(d3.format("~s"))
+    );
+
+  // Draw Bottom Axis
+  svg.append("g")
+    .attr("transform", "translate(50,500)")
+    .call(
+      d3.axisBottom(x)
+        .tickValues([10, 20, 50, 100])
+        .tickFormat(d3.format("~s"))
+    );    
+
+  // Chart Titles & Labels
+  svg.append("text")
+    .attr("x", 275)
+    .attr("y", 30) 
+    .attr("text-anchor", "middle")
+    .style("font-family", "sans-serif")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .text("Highway MPG vs City MPG");
+
+  svg.append("text")
+      .attr("x", 275)
+      .attr("y", 60)
+      .attr("text-anchor", "middle")
+      .style("font-size", "10px")
+      .style("fill", "gray")
+      .text("Size indicates number of cylinders.");
+
+  svg.append("text")
+    .attr("x", 275) 
+    .attr("y", 545)
+    .attr("text-anchor", "middle")
+    .style("font-family", "sans-serif")
+    .style("font-size", "12px")
+    .text("Average Highway MPG (Log Scale)");
+
+  svg.append("text")
+    .attr("transform", "rotate(-90)") 
+    .attr("x", -250)                  
+    .attr("y", 20)                    
+    .attr("text-anchor", "middle")
+    .style("font-family", "sans-serif")
+    .style("font-size", "12px")
+    .text("Average City MPG (Log Scale)");
+
+  // FIXED: Voronoi layer moved INSIDE the init() function body
+  svg.append("g")
+    .attr("class", "voronoi")
+    .attr("transform", "translate(50,50)")
+    .selectAll("path")
+    .data(voronoi.polygons(data))
+    .enter()
+    .append("path")
+      .attr("d", d => d ? "M" + d.join("L") + "Z" : null)
+      .on("mouseover", function(d) {
+          if (!d) return;
+          const carData = d.data; 
+          tooltip.style("opacity", 1)
+                 .html(`<strong>${carData.Make}</strong><br/>Cylinders: ${carData.EngineCylinders}`);
+      })
+      .on("mousemove", function() {
+          tooltip.style("left", (d3.event.pageX + 15) + "px")
+                 .style("top", (d3.event.pageY - 15) + "px");
+      })
+      .on("mouseout", function() {
+          tooltip.style("opacity", 0);
+      });
+}
+</script>
+</body>
+</html><html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {} </style>
 <style>
