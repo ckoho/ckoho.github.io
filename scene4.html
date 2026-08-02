@@ -32,7 +32,7 @@ legendItems.append("rect")
 legendItems.append("text")
     .attr("x",18)
     .attr("y",10)
-    .text(d => d + " cylinders");  
+    .text(d => d + " fuel");  
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .selectAll("circle")
@@ -43,7 +43,7 @@ svg.append("g")
     .attr("cx", d => x(+d.AverageCityMPG))
     .attr("fill", d => color(d.Fuel))
     .attr("cy", d => y(+d.AverageHighwayMPG))
-    .attr("r", d => (2 + +d.EngineCylinders)/3);
+    .attr("r", d => (2 + +d.EngineCylinders)/2);
 
     svg.append("g")
   .attr("transform", "translate(50,50)")
@@ -54,7 +54,7 @@ svg.append("g")
   );
 
 svg.append("g")
-  .attr("transform", "translate(50,450)")
+  .attr("transform", "translate(50,500)")
   .call(
     d3.axisBottom(x)
       .tickValues([10, 20, 50, 100])
