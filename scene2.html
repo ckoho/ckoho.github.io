@@ -34,6 +34,7 @@ svg.append("g")
     .attr("cy", d => y(+d.AverageCityMPG))
     .attr("fill", d => color(makeTypes.indexOf(d.Make)))
     .attr("r", d => (2 + +d.EngineCylinders));
+    .append("title").text(d => `${d.Make} (${d.EngineCylinders} Cylinders)`);
 svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
