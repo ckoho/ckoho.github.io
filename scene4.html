@@ -17,7 +17,23 @@ var color = d3.scaleOrdinal()
   .range(d3.schemeCategory10);    
 const legend = svg.append("g")
     .attr("transform", "translate(420,420)");
+function showTooltip(d) {
+    $(this).popover({
+        placement: 'auto top', //place the tooltip above the item
+        container: '#chart', //the name (class or id) of the container
+        trigger: 'manual',
+        html : true,
+        content: function() { return `${d.Make} (${d.EngineCylinders}; } 
+    });
+    $(this).popover('show');
+}
 
+function removeTooltip() {
+    //Hide the tooltip
+    $('.popover').each(function() {
+        $(this).remove();
+    });
+}
 const legendItems = legend.selectAll("g")
     .data(color.domain())
     .enter()
