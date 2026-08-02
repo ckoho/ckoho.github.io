@@ -153,7 +153,7 @@ const circles = svg.append("g")
             .filter(c => c === carData)
             .attr("stroke", "black")
             .attr("stroke-width", 2)
-            .attr("r", d => (2 + +d.EngineCylinders)/2 + 2);
+            .attr("r", d => (2 + +d.EngineCylinders));
       })
       .on("mousemove", function() {
           tooltip.style("left", (d3.event.pageX + 15) + "px")
