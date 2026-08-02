@@ -1,6 +1,24 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {} </style>
+<style>
+  circle { cursor: pointer; }
+  .tooltip {
+    position: absolute;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+</style>
+<body>
+  <div id="tooltip" class="tooltip"></div>
+  <svg width=700 height=600></svg>
 <body onload='init()'>
 <svg width=700 height=600>
 </svg>
@@ -17,28 +35,17 @@ var color = d3.scaleOrdinal()
   .range(d3.schemeCategory10);    
 const legend = svg.append("g")
     .attr("transform", "translate(420,420)");
-function showTooltip(d) {
-    $(this).popover({
-        placement: 'auto top', //place the tooltip above the item
-        container: '#chart', //the name (class or id) of the container
-        trigger: 'manual',
-        html : true,
-        content: function() { return `${d.Make} (${d.EngineCylinders})`; }
-    });
-    $(this).popover('show');
-}
 
-function removeTooltip() {
-    //Hide the tooltip
-    $('.popover').each(function() {
-        $(this).remove();
-    });
-}
 const legendItems = legend.selectAll("g")
     .data(color.domain())
     .enter()
     .append("g")
     .attr("transform", (d,i) => `translate(0,${i*20})`);
+const tooltip = d3.select("#tooltip");
+const voronoi = d3.voronoi()
+  .x(d => x(+d.AverageHighwayMPG))
+  .y(d => y(+d.AverageCityMPG))
+  .extent([[0, 0], [450, 450]]);
 
 legendItems.append("rect")
     .attr("width",12)
@@ -59,10 +66,7 @@ svg.append("g")
     .attr("cx", d => x(+d.AverageHighwayMPG))
     .attr("cy", d => y(+d.AverageCityMPG))
     .attr("fill", d => color(d.Fuel))
-    .attr("r", d => (2 + +d.EngineCylinders)/2)
-    .on("mouseover", showTooltip)
-    .on("mouseout", removeTooltip);
-
+    .attr("r", d => (2 + +d.EngineCylinders)/2);
     svg.append("g")
   .attr("transform", "translate(50,50)")
   .call(
@@ -110,6 +114,28 @@ svg.append("text")
   .style("font-size", "12px")
   .text("Average City MPG (Log Scale)");
 }
+svg.append("g")
+  .attr("class", "voronoi")
+  .attr("transform", "translate(50,50)")
+  .selectAll("path")
+  .data(voronoi.polygons(data))
+  .enter()
+  .append("path")
+    .attr("d", d => d ? "M" + d.join("L") + "Z" : null)
+    .on("mouseover", function(d) {
+        const carData = d.data; 
+        tooltip.style("opacity", 1)
+               .html(`<strong>${carData.Make}</strong><br/>Cylinders: ${carData.EngineCylinders}`);
+    })
+    .on("mousemove", function() {
+        tooltip.style("left", (d3.event.pageX + 15) + "px")
+               .style("top", (d3.event.pageY - 15) + "px");
+    })
+    .on("mouseout", function() {
+        tooltip.style("opacity", 0);
+    });
+
+
 </script>
 </body>
 </html>
