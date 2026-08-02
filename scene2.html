@@ -31,7 +31,7 @@ svg.append("g")
       const randomOffset = (Math.random() - 0.5) * jitterWidth; 
       return columnCenter + randomOffset;
       })
-    .attr("cy", d => y(+d.AverageHighwayMPG))
+    .attr("cy", d => y(+d.AverageCityMPG))
     .attr("fill", d => color(makeTypes.indexOf(d.Make)))
     .attr("r", d => (2 + +d.EngineCylinders));
 svg.append("g")
@@ -51,7 +51,7 @@ svg.append("text")
   .style("font-family", "sans-serif")
   .style("font-size", "16px")
   .style("font-weight", "bold")
-  .text("Highway MPG vs Fuel Type by Engine Cylinders");
+  .text("City MPG vs Fuel Type by Engine Cylinders");
 svg.append("text")
     .attr("x", 250)
     .attr("y", 60)
@@ -74,7 +74,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("font-family", "sans-serif")
   .style("font-size", "12px")
-  .text("Average Highway MPG (Log Scale)");
+  .text("Average City MPG (Log Scale)");
 }
 </script>
 </body>
