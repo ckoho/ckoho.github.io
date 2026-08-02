@@ -23,7 +23,7 @@ function showTooltip(d) {
         container: '#chart', //the name (class or id) of the container
         trigger: 'manual',
         html : true,
-        content: function() { return `${d.Make} (${d.EngineCylinders}; } 
+        content: function() { return `${d.Make} (${d.EngineCylinders})`; }
     });
     $(this).popover('show');
 }
