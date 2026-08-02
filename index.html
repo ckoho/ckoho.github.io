@@ -19,8 +19,8 @@ svg.append("g")
   .enter()
   .append("circle")
     .style("opacity", 0.5)
-    .attr("cx", d => x(+d.AverageCityMPG))
-    .attr("cy", d => y(+d.AverageHighwayMPG))
+    .attr("cy", d => x(+d.AverageCityMPG))
+    .attr("cx", d => y(+d.AverageHighwayMPG))
     .attr("fill", d => "black")
     .attr("r", 5);
 svg.append("g")
@@ -53,7 +53,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("font-family", "sans-serif")
   .style("font-size", "12px")
-  .text("Average City MPG (Log Scale)");
+  .text("Average Highway MPG (Log Scale)");
 
 svg.append("text")
   .attr("transform", "rotate(-90)") 
@@ -62,7 +62,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("font-family", "sans-serif")
   .style("font-size", "12px")
-  .text("Average Highway MPG (Log Scale)");
+  .text("Average City MPG (Log Scale)");
 }
 </script>
 </body>
