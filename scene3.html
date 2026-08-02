@@ -1,6 +1,10 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<style> circle {} </style>
+<script src="https://unpkg.com/d3-svg-annotation@2.5.1/d3-annotation.min.js"></script>
+<style> circle {} 
+  .annotation path { stroke: #E64A19; fill: none; }
+  .annotation text { fill: #E64A19; font-family: sans-serif; font-size: 12px; }
+</style>
 <body onload='init()'>
 <svg width=700 height=600> 
 </svg>
@@ -93,6 +97,25 @@ svg.append("text")
   .style("font-family", "sans-serif")
   .style("font-size", "12px")
   .text("Average City MPG (Log Scale)");
+const annotations = [
+{
+    note: {
+        title: "Diesel",
+        label: "For a given cylinder, it seems like diesel does better MPG than gas.."
+    },
+    x: x("4") + x.bandwidth()/2 + 50,
+    y: y(120) + 50,
+    dx: 100,
+    dy: 40
+}
+];
+const makeAnnotations = d3.annotation()
+    .annotations(annotations);
+svg.append("g")
+    .attr("transform", "translate(0,0)")
+    .call(makeAnnotations);
+
+}
 }
 </script>
 </body>
