@@ -53,11 +53,10 @@ async function init() {
       .attr("transform", (d,i) => `translate(0,${i*20})`);
       
   const tooltip = d3.select("#tooltip");
-  
-  const voronoi = d3.voronoi()
-    .x(d => x(+d.AverageHighwayMPG))
-    .y(d => y(+d.AverageCityMPG))
-    .extent([[0, 0], [450, 450]]);
+const voronoi = d3.voronoi()
+  .x(d => x(+d.AverageHighwayMPG) + Math.random() * 0.01)
+  .y(d => y(+d.AverageCityMPG) + Math.random() * 0.01)
+  .extent([[0, 0], [450, 450]]);
 
   legendItems.append("rect")
       .attr("width",12)
