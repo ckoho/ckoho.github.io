@@ -60,6 +60,31 @@ svg.append("g")
       .tickValues([10, 20, 50, 100])
       .tickFormat(d3.format("~s"))
   );    
+  svg.append("text")
+  .attr("x", 275)
+  .attr("y", 30) 
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "16px")
+  .style("font-weight", "bold")
+  .text("Highway MPG vs City MPG");
+
+svg.append("text")
+  .attr("x", 275) 
+  .attr("y", 545)
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "12px")
+  .text("Average City MPG (Log Scale)");
+
+svg.append("text")
+  .attr("transform", "rotate(-90)") 
+  .attr("x", -250)                  
+  .attr("y", 20)                    
+  .attr("text-anchor", "middle")
+  .style("font-family", "sans-serif")
+  .style("font-size", "12px")
+  .text("Average Highway MPG (Log Scale)");
 }
 </script>
 </body>
