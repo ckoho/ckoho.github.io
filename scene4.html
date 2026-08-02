@@ -61,19 +61,17 @@ const voronoi = d3.voronoi()
       .attr("y",10)
       .text(d => d + " fuel");  
 
-  // Draw Circles
-  svg.append("g")
-    .attr("transform", "translate(50,50)")
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-      .style("opacity", 0.9)
-      .attr("cx", d => x(+d.AverageHighwayMPG))
-      .attr("cy", d => y(+d.AverageCityMPG))
-      .attr("fill", d => color(d.Fuel))
-      .attr("r", d => (2 + +d.EngineCylinders)/2);
-
+const circles = svg.append("g")
+  .attr("transform", "translate(50,50)")
+  .selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+  .style("opacity", 0.9)
+  .attr("cx", d => x(+d.AverageHighwayMPG))
+  .attr("cy", d => y(+d.AverageCityMPG))
+  .attr("fill", d => color(d.Fuel))
+  .attr("r", d => (2 + +d.EngineCylinders)/2);
   // Draw Left Axis
   svg.append("g")
     .attr("transform", "translate(50,50)")
@@ -145,7 +143,7 @@ const voronoi = d3.voronoi()
             .attr("stroke", null)
             .attr("stroke-width", 0);
           circles
-            .filter(c => c === car)
+            .filter(c => c === carData)
             .attr("stroke", "black")
             .attr("stroke-width", 2);
       })
