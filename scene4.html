@@ -68,7 +68,13 @@ svg.append("g")
   .style("font-size", "16px")
   .style("font-weight", "bold")
   .text("Highway MPG vs City MPG");
-
+svg.append("text")
+    .attr("x", 275)
+    .attr("y", 60)
+    .attr("text-anchor", "middle")
+    .style("font-size", "10px")
+    .style("fill", "gray")
+    .text("Size indicates number of cylinders.");
 svg.append("text")
   .attr("x", 275) 
   .attr("y", 545)
